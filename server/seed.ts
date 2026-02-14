@@ -30,11 +30,14 @@ async function seed() {
   for (let i = 0; i < 50; i++) {
     readings.push({
       type: "MQ-2",
-      value: 200 + Math.random() * 100,
+      params: {
+        smoke: 200 + Math.random() * 100,
+        lpg: 150 + Math.random() * 50,
+        propane: 180 + Math.random() * 70
+      },
       unit: "ppm",
       region: "Delhi-NCR",
       coordinates: { lat: 28.6139, lng: 77.2090 },
-      // timestamp would be set by defaultNow() but let's just insert them
     });
   }
   

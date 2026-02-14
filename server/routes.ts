@@ -10,35 +10,45 @@ import { randomUUID } from "crypto";
 function generateSensorData() {
   const types = ['MQ-2', 'MQ-7', 'DHT22', 'MPU6050'];
   const type = types[Math.floor(Math.random() * types.length)];
-  let value = 0;
+  let params: Record<string, number> = {};
   let unit = '';
 
   switch (type) {
     case 'MQ-2': // Smoke/Gas
-      value = 200 + Math.random() * 300; // ppm
+      params = {
+        smoke: 200 + Math.random() * 100,
+        lpg: 150 + Math.random() * 50,
+        propane: 180 + Math.random() * 70
+      };
       unit = 'ppm';
       break;
     case 'MQ-7': // CO
-      value = 5 + Math.random() * 20; // ppm
+      params = {
+        co: 5 + Math.random() * 20
+      };
       unit = 'ppm';
       break;
     case 'DHT22': // Temp/Humidity
-      // Toggle between temp and humidity for simplicity in this flat structure
-      if (Math.random() > 0.5) {
-        value = 25 + Math.random() * 15; // Celsius
-        unit = '°C';
-      } else {
-        value = 40 + Math.random() * 40; // %
-        unit = '%';
-      }
+      params = {
+        temp: 25 + Math.random() * 15,
+        humidity: 40 + Math.random() * 40
+      };
+      unit = 'mixed';
       break;
-    case 'MPU6050': // IMU (just sending a composite magnitude for demo)
-      value = Math.random() * 2; // G
-      unit = 'G';
+    case 'MPU6050': // IMU
+      params = {
+        accel_x: Math.random() * 2 - 1,
+        accel_y: Math.random() * 2 - 1,
+        accel_z: Math.random() * 2 - 1,
+        gyro_x: Math.random() * 500 - 250,
+        gyro_y: Math.random() * 500 - 250,
+        gyro_z: Math.random() * 500 - 250
+      };
+      unit = 'G / deg/s';
       break;
   }
 
-  return { type, value, unit, region: 'Delhi-NCR', coordinates: { lat: 28.6139, lng: 77.2090 } };
+  return { type, params, unit, region: 'Delhi-NCR', coordinates: { lat: 28.6139, lng: 77.2090 } };
 }
 
 function generateDroneData() {

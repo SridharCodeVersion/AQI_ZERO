@@ -7,8 +7,8 @@ import { z } from "zod";
 // Sensor Readings (Simulated data ingestion)
 export const sensorReadings = pgTable("sensor_readings", {
   id: serial("id").primaryKey(),
-  type: text("type").notNull(), // 'MQ-2', 'MQ-7', 'DHT22', 'MPU6050', etc.
-  value: doublePrecision("value").notNull(),
+  type: text("type").notNull(), // 'MQ-2', 'MQ-7', 'DHT22', 'MPU6050'
+  params: jsonb("params").notNull(), // { smoke: number, lpg: number, co: number, temp: number, hum: number, accel_x: number, etc. }
   unit: text("unit").notNull(),
   timestamp: timestamp("timestamp").defaultNow(),
   region: text("region").default("Delhi-NCR"),

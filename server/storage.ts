@@ -36,7 +36,10 @@ export interface IStorage {
 
 export class DatabaseStorage implements IStorage {
   async addSensorReading(reading: InsertSensorReading): Promise<SensorReading> {
-    const [newReading] = await db.insert(sensorReadings).values(reading).returning();
+    const [newReading] = await db.insert(sensorReadings).values({
+      ...reading,
+      params: reading.params as any
+    }).returning();
     return newReading;
   }
 
