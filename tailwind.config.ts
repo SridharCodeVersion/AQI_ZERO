@@ -81,11 +81,19 @@ export default {
           busy: "rgb(239 68 68)",
           offline: "rgb(156 163 175)",
         },
+        neon: {
+          green: "hsl(var(--neon-green) / <alpha-value>)",
+          blue: "hsl(var(--neon-blue) / <alpha-value>)",
+          red: "hsl(var(--neon-red) / <alpha-value>)",
+          yellow: "hsl(var(--neon-yellow) / <alpha-value>)",
+        },
       },
       fontFamily: {
+        display: ["var(--font-display)"],
+        body: ["var(--font-body)"],
+        mono: ["var(--font-mono)"],
         sans: ["var(--font-sans)"],
         serif: ["var(--font-serif)"],
-        mono: ["var(--font-mono)"],
       },
       keyframes: {
         "accordion-down": {
