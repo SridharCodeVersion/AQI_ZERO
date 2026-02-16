@@ -90,8 +90,10 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || "5000", 10);
-  httpServer.listen(port, "localhost", () => {
-    log(`serving on port ${port}`);
+  // Use 0.0.0.0 to allow connections from outside the container (CodeSandbox, Codespaces, etc.)
+  const host = process.env.HOST || "0.0.0.0";
+  httpServer.listen(port, host, () => {
+    log(`serving on ${host}:${port}`);
     log(`Visit http://localhost:${port} to view your application`);
   });
 })();
